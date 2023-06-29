@@ -26,9 +26,8 @@ import { prisma } from "@/server/db";
 type CreateContextOptions = {
   session:
     | (Session & {
-        walletAddress?: string;
         user: {
-          walletAddress?: string;
+          walletAddress: string;
           provider?: string;
           magicSolanaAddress?: string;
         };

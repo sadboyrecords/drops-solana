@@ -3,7 +3,7 @@ export const authProviderNames = {
   solana: "solana-auth",
 };
 
-export const navLinks = {
+export const routes = {
   home: {
     label: "Home",
     href: "/",
@@ -20,8 +20,16 @@ export const navLinks = {
     label: "New Drop",
     href: "/create-drop",
   },
-  dropDetails: {
-    label: "Drop Details",
-    href: "/drop-details",
-  },
+  dropDetails: (slug: string) => ({
+    label: `Drop Draft`,
+    href: `/drop/details/${slug}`,
+  }),
+  draftDrops: (slug: string) => ({
+    label: `Drop Draft}`,
+    href: `/drop/draft/${slug}`,
+  }),
+  editDrop: (slug: string) => ({
+    label: `Drop Draft}`,
+    href: `/drop/edit/${slug}`,
+  }),
 };

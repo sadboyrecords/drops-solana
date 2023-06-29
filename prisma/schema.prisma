@@ -71,18 +71,19 @@ model VerificationToken {
 }
 
 model Drop {
-    id                 String   @id @default(uuid())
-    candyMachineId     String?  @unique
-    slug               String   @unique
-    createdAt          DateTime @default(now())
-    updatedAt          DateTime @updatedAt
-    isDraft            Boolean  @default(true)
-    earliestStartDate  DateTime // you can have several guards with different start dates, this allows you to run queries based on drop timing
-    latestEndDate      DateTime
+    id                 String    @id @default(uuid())
+    candyMachineId     String?   @unique
+    slug               String    @unique
+    createdAt          DateTime  @default(now())
+    updatedAt          DateTime  @updatedAt
+    isDraft            Boolean   @default(true)
+    defaultStartDate   DateTime // you can have several guards with different start dates, this allows you to run queries based on drop timing
+    defaultEndDate     DateTime?
     ownerWalletAddress String
-    owner              User     @relation("UserDrop", fields: [ownerWalletAddress], references: [walletAddress])
+    owner              User      @relation("UserDrop", fields: [ownerWalletAddress], references: [walletAddress])
     creators           User[]
     lowestPrice        Float?
+    defaultPrice       Float?
     audioUri           String?
     audioIpfsHash      String?
     imageIpfsHash      String?
@@ -91,6 +92,20 @@ model Drop {
     description        String
     dropName           String
     collectionAddress  String?
-    isPublic           Boolean  @default(false)
+    isPublic           Boolean   @default(false)
     items              Int?
+    formSubmission     Json
+    step               DropStep  @default(METADATA_UPLOAD)
+    metadataHash       Float[]
+
+    @@unique([ownerWalletAddress, slug])
+}
+
+enum DropStep {
+    METADATA_UPLOAD
+    CREATE_COLLECTION
+    CREATE_CANDY_MACHINE
+    INSERT_ITEMS
+    SAVE_DATA
+    LAUNCHED
 }

@@ -12,6 +12,7 @@ This project provides basic minimal functionality to show you how you can create
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [Magic Link](https://magic.link/)
 - [CandyMachine v3]()
+- [Thirdweb Storage](https://portal.thirdweb.com/typescript/storage)
 
 ## Getting Started
 

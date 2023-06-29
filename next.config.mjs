@@ -18,5 +18,15 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: [
+      "ipfs-2.thirdwebcdn.com",
+      "ipfs.thirdwebcdn.com",
+      "thirdwebcdn.com",
+      "gateway.ipfscdn.io",
+      "cloudflare-ipfs.com",
+      "ipfs.io",
+    ],
+  },
 };
 export default config;

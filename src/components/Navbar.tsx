@@ -1,7 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import SignInWallet from "@/components/SignInWallet";
 import Link from "next/link";
-import { navLinks } from "@/lib/constants";
+import { routes } from "@/lib/constants";
 
 export default function Navbar() {
   // const
@@ -17,10 +17,10 @@ export default function Navbar() {
                 </Link>
                 <div className=" ml-6 flex space-x-8">
                   <Link
-                    href={navLinks.myDrops.href}
+                    href={routes.myDrops.href}
                     className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                   >
-                    {navLinks.myDrops.label}
+                    {routes.myDrops.label}
                   </Link>
                 </div>
               </div>
