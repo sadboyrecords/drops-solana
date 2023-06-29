@@ -4,6 +4,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { routes } from "@/lib/constants";
 import { useSession } from "next-auth/react";
 import { api } from "@/utils/api";
+import DropCard from "@/components/drop/DropCard";
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
+
+const storage = new ThirdwebStorage();
 
 function MyDropsPage() {
   const { status } = useSession();
@@ -40,6 +44,28 @@ function MyDropsPage() {
               message="You have not created any drops yet"
             />
           ))}
+
+        {drops && drops.length > 0 && (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {drops.map((drop) => (
+              <DropCard
+                key={drop.id}
+                slug={drop.slug}
+                image={storage.resolveScheme(drop.imageIpfsHash)}
+                name={drop.dropName}
+                price={drop.defaultPrice || undefined}
+                audio={
+                  (drop.audioIpfsHash &&
+                    storage.resolveScheme(drop.audioIpfsHash)) ||
+                  undefined
+                }
+                showBadge
+                published={!drop.isDraft}
+                ownerAddress={drop.ownerWalletAddress}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

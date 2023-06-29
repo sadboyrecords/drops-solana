@@ -3,11 +3,10 @@ import { useRouter } from "next/router";
 import { api } from "@/utils/api";
 import { routes } from "@/lib/constants";
 import PageWarning from "@/components/PageWarning";
-import DropDetails from "@/components/drop/DropDraftDetails";
 import { Skeleton } from "@/components/ui/skeleton";
-import LaunchSteps from "@/components/drop/LaunchSteps";
+import DropDetails from "@/components/drop/DropDetails";
 
-export default function DropDraftPage() {
+export default function DropDetailsPage() {
   const { query } = useRouter();
   const slug = query.slug;
   const { data: drop, isLoading } = api.drop.getDraft.useQuery(
@@ -39,7 +38,6 @@ export default function DropDraftPage() {
             }
           />
           <DropDetails />
-          <LaunchSteps />
         </div>
       )}
     </>
