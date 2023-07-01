@@ -1,10 +1,6 @@
 import {
-  DefaultCandyGuardMintSettings,
   type Metadata,
   type MintLimitGuardSettings,
-  NftBurnGuardMintSettings,
-  NftGateGuardMintSettings,
-  NftPaymentGuardMintSettings,
   type Pda,
 } from "@metaplex-foundation/js";
 import { type AccountInfo, type PublicKey } from "@solana/web3.js";

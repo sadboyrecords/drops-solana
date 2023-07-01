@@ -50,7 +50,6 @@ type TInputProps = {
 
 function Input2({
   dropDown,
-  htmlFor,
   className = "",
   description,
   disabled,
@@ -58,17 +57,14 @@ function Input2({
   errorMessage,
   icon,
   inputProps = {},
-  label,
   name,
   onChange,
   placeholder,
   readonly,
-  optional,
   type = "text",
   value,
   iconEnd,
   accept = "",
-  tooltipText,
   beginAddOn,
 }: TInputProps) {
   return (

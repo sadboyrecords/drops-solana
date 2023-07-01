@@ -1,15 +1,15 @@
 import * as z from "zod";
-import { PublicKey } from "@solana/web3.js";
+// import { PublicKey } from "@solana/web3.js";
 
-const isValidWalletAddress = (address: string) => {
-  try {
-    new PublicKey(address);
-    return true;
-  } catch (error) {
-    // return false;
-    throw new Error("Invalid wallet address");
-  }
-};
+// const isValidWalletAddress = (address: string) => {
+//   try {
+//     new PublicKey(address);
+//     return true;
+//   } catch (error) {
+//     // return false;
+//     throw new Error("Invalid wallet address");
+//   }
+// };
 export const dropSchema = z.object({
   name: z.string().min(1, "Drop name is required"),
   description: z.string().min(1, "Drop description is required"),
