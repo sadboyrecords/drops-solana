@@ -148,8 +148,7 @@ function DropDetails() {
           <div className=" flex  max-w-sm flex-1 flex-col  gap-8 ">
             <div className="space-y-2">
               <p className="text-4xl font-semibold">
-                {/* {collection.metadata.name} */}
-                Collection Name
+                {collection.metadata.name}
               </p>
               <TitleContent title="Description" content={drop.description} />
             </div>

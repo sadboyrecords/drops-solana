@@ -65,11 +65,13 @@ Magic only provides an Eth address as the public address. We need to convert it 
     };
 ```
 
-## Getting Started
+### Preview
+
+![Desktop preview](https://github.com/sadboyrecords/drops-solana/blob/main/public/screenshots/collection-details.png)
 
 ### Env Variables
 
-_All of them are optional at this moment as we're using default if they are not exists in [config.ts](src/config.ts)_
+You will need the following environment variables to run this project. You can create a `.env.local` file in the root of the project and add the following variables.
 
 - DATABASE_URL
 - NEXTAUTH_SECRET
