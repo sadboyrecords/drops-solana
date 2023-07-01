@@ -1,7 +1,6 @@
 import PageHeader from "@/components/PageHeader";
 import { useRouter } from "next/router";
 import { api } from "@/utils/api";
-import { routes } from "@/lib/constants";
 import PageWarning from "@/components/PageWarning";
 import { Skeleton } from "@/components/ui/skeleton";
 import DropDetails from "@/components/drop/DropDetails";
@@ -9,14 +8,14 @@ import DropDetails from "@/components/drop/DropDetails";
 export default function DropDetailsPage() {
   const { query } = useRouter();
   const slug = query.slug;
-  const { data: drop, isLoading } = api.drop.getDraft.useQuery(
+  const { data: drop, isLoading } = api.drop.getDropDetails.useQuery(
     query?.slug as string,
     {
       enabled: !!slug,
       staleTime: 1000 * 3, // 3 seconds
     }
   );
-
+  console.log({ drop });
   return (
     <>
       {!isLoading && !drop && <PageWarning type="NOT_FOUND" />}
@@ -27,19 +26,7 @@ export default function DropDetailsPage() {
           <Skeleton className="h-56 w-full" />
         </div>
       )}
-      {drop && (
-        <div className="flex flex-col gap-6">
-          <PageHeader
-            title={`${drop.dropName}`}
-            subtitle=""
-            buttonText="Edit"
-            buttonLink={
-              drop.isDraft ? routes.editDrop(slug as string).href : undefined
-            }
-          />
-          <DropDetails />
-        </div>
-      )}
+      {drop && <DropDetails />}
     </>
   );
 }

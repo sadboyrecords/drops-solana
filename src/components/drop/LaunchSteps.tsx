@@ -41,6 +41,8 @@ import {
 import { useWallet } from "@solana/wallet-adapter-react";
 import { walletAdapterIdentity as walletIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
 import { env } from "@/env.mjs";
+import Link from "next/link";
+import { routes } from "@/lib/constants";
 
 const storage = new ThirdwebStorage();
 
@@ -353,7 +355,6 @@ function LaunchSteps() {
 
         return;
       }
-      setIsMinting(false);
 
       await updateMutation.mutateAsync({
         slug: drop.slug,
@@ -361,6 +362,17 @@ function LaunchSteps() {
         collectionAddress: collectionMint.publicKey,
       });
       await refetch();
+      const newSteps = originalSteps?.map((step) => {
+        if (step?.step === stepperKeys.CREATE_COLLECTION) {
+          return {
+            ...step,
+            status: stepperStatus.completed,
+          } as Steps;
+        }
+        return step;
+      });
+      setMintingSteps(newSteps);
+      setIsMinting(false);
     } catch (error) {
       const newSteps = originalSteps?.map((step) => {
         if (step?.step === stepperKeys.CREATE_COLLECTION) {
@@ -403,6 +415,72 @@ function LaunchSteps() {
       // with hidden settings we can modify our candy machine items
       // with config lines you can't once created
       const candyMachine = generateSigner(umi);
+      const config = {
+        candyMachine,
+        collectionMint: publicKey(drop?.collectionAddress),
+        collectionUpdateAuthority: umi.payer,
+        tokenStandard: 0, //TokenStandard.NonFungible
+        sellerFeeBasisPoints: percentAmount(
+          Number(formSubmission.sellerFeeBasisPoints),
+          2
+        ),
+        itemsAvailable: Number(formSubmission.itemsAvailable),
+        hiddenSettings: {
+          hash: new Uint8Array(drop?.metadataHash),
+          uri: storage.resolveScheme(drop.jsonIpfsHash),
+          name: formSubmission?.name + " #$ID+1$",
+        },
+        guards: {
+          startDate: {
+            date: new Date(formSubmission.defaultGuard.startDate),
+          },
+          endDate: formSubmission.defaultGuard.endDate && {
+            date: new Date(formSubmission.defaultGuard.endDate),
+          },
+          solPayment: {
+            lamports: sol(Number(formSubmission.defaultGuard.price)),
+            destination: fromWeb3JsPublicKey(
+              new Web3PublicKey(formSubmission.defaultGuard.paymentDestination)
+            ),
+          },
+        },
+        creators: formSubmission.creatorSplits.map((c) => ({
+          address: fromWeb3JsPublicKey(new Web3PublicKey(c.address)),
+          percentageShare: Number(c.share),
+          verified: true,
+        })),
+        groups: formSubmission?.guards?.map((guard) => ({
+          label: guard.label,
+          guards: {
+            startDate: guard.startDate && {
+              date: new Date(guard.startDate),
+            },
+            endDate: guard.endDate && {
+              date: new Date(guard.endDate),
+            },
+            solPayment: guard.price
+              ? {
+                  lamports: sol(Number(guard.price)),
+                  destination: fromWeb3JsPublicKey(
+                    new Web3PublicKey(guard.paymentDestination)
+                  ),
+                }
+              : null,
+            mintLimit: guard.mintLimit
+              ? {
+                  id: 1,
+                  limit: Number(guard.mintLimit),
+                }
+              : null,
+            redeemedAmount: guard.redeemAmount
+              ? {
+                  maximum: Number(guard.redeemAmount),
+                }
+              : null,
+          },
+        })),
+      };
+      console.log({ config });
       const candy = await create(umi, {
         candyMachine,
         collectionMint: publicKey(drop?.collectionAddress),
@@ -488,8 +566,9 @@ function LaunchSteps() {
       setMintingSteps(newSteps);
       setIsMinting(false);
     } catch (error) {
+      console.log({ error });
       const newSteps = originalSteps?.map((step) => {
-        if (step?.step === stepperKeys.CREATE_COLLECTION) {
+        if (step?.step === stepperKeys.CREATE_CANDY_MACHINE) {
           return {
             ...step,
             status: stepperStatus.error,
@@ -881,6 +960,20 @@ function LaunchSteps() {
           ))}
         </ol>
       </nav>
+      {drop?.isPublished && (
+        <div className="mt-4">
+          <p className="text-md ">
+            Your drop is published! Click{" "}
+            <Link
+              className="text-primary-500"
+              href={routes.dropDetails(drop.slug).href}
+            >
+              here
+            </Link>{" "}
+            to view it.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

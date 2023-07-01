@@ -60,7 +60,7 @@ function MyDropsPage() {
                   undefined
                 }
                 showBadge
-                published={!drop.isDraft}
+                published={drop.isPublished}
                 ownerAddress={drop.ownerWalletAddress}
               />
             ))}

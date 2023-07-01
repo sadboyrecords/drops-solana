@@ -79,3 +79,9 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+@layer components {
+  .countdown-timer {
+    @apply bg-primary-100 px-2 py-1 text-sm text-primary-600;
+  }
+}

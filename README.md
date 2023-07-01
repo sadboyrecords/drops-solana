@@ -1,6 +1,6 @@
-# Drops on Solana
+# Candy Machine v3 with UMI
 
-This project provides basic minimal functionality to show you how you can create your own drops & music player on Solana
+This project is not fully production ready yet. This project uses Candy Machine v3 with Umi library. This project is a reference UI to implement Metaplex Candy Machine V3 on the frontend with the new UMI Library. Some packages are still in alpha therefore I would not recommend using them in a production environment.
 
 ## What we used
 
@@ -9,16 +9,48 @@ This project provides basic minimal functionality to show you how you can create
 - [Prisma](https://prisma.io)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
-- [Redux Toolkit](https://redux-toolkit.js.org/)
 - [Magic Link](https://magic.link/)
 - [CandyMachine v3]()
 - [Thirdweb Storage](https://portal.thirdweb.com/typescript/storage)
+- [Shadcn/ui](https://ui.shadcn.com)
+- [Radix-ui](https://www.radix-ui.com)
 
-## Getting Started
+### Implemented features
+
+- [x] Responsive UI
+- [x] Email Authentication + minting w/ Magic Link
+- [x] Session Management w/ Next Auth
+- [x] Candy Machine creation via UI
+- [ ] Candy Machine creation form validation
+- [x] Basic audio player
+- [x] Single Mint UI
+- [x] Countdown Timer
+- [x] Preview Minted NFTs
+- [x] Supported Guards (WIP)
+  - [x] Start Date
+  - [x] End Date
+  - [x] Sol Payment
+  - [x] Mint Limit
+  - [x] Redeemed Amount
+  - [ ] Token Payment
+  - [ ] Bot Tax
+  - [ ] Token Burn
+  - [ ] Token Gate
+  - [ ] NFT Payment
+  - [ ] NFT Burn
+  - [ ] NFT Gate
+  - [ ] Address Gate
+  - [ ] Allow List
+  - [ ] Gatekeeper
+- [ ] Multi Mint
+- [ ] Purchased NFT Preview
+- [ ] User profile + wallet balance preview
 
 ## Things to note
 
-Magic only provides Eth address as the public address. We need to convert it to Solana address. If you want users to keep the same account across chains, you can use the following code to convert the Eth address to Solana address.
+### Magic Link
+
+Magic only provides an Eth address as the public address. We need to convert it to Solana address. In the event you want your app to be multi chain and enable your users to keep the same account across chains, here is an example of what you can do in your `auth.ts` file to use the same public address across chains.
 
 ```js
    const data = {
@@ -33,41 +65,24 @@ Magic only provides Eth address as the public address. We need to convert it to 
     };
 ```
 
-### Prerequisites
+## Getting Started
 
-## Features
+### Env Variables
 
-Reference UI to implement Metaplex Candy Machine V3 on frontend.
+_All of them are optional at this moment as we're using default if they are not exists in [config.ts](src/config.ts)_
 
-# Create T3 App
+- DATABASE_URL
+- NEXTAUTH_SECRET
+- NEXTAUTH_URL
+- NEXT_PUBLIC_MAGIC_PK
+- MAGIC_SK
+- NEXT_PUBLIC_RPC_HOST
+- NEXT_PUBLIC_SOLANA_NETWORK
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Collaborating
 
-## What's next? How do I make an app with this?
+Feel free to submit a pull request to the main branch if you would like to collaborate on this repo.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Feedback/Support
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](**https**://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
-
-things that can be improved
-
-- additional date validation
+If you have any feedback or need support, please submit an issue through [Github Issues](https://github.com/sadboyrecords/drops-solana/issues).

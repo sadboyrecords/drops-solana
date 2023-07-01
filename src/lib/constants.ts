@@ -1,3 +1,5 @@
+import { env } from "@/env.mjs";
+
 export const authProviderNames = {
   magic: "magic-link",
   solana: "solana-auth",
@@ -32,4 +34,15 @@ export const routes = {
     label: `Drop Draft}`,
     href: `/drop/edit/${slug}`,
   }),
+};
+
+export const solscanUrls = (address: string) => {
+  return {
+    tokenDetails: `https://solscan.io/token/${address}${
+      env.NEXT_PUBLIC_SOLANA_NETWORK === "devnet" ? "?cluster=devnet" : ""
+    }`,
+    transactionDetails: `https://solscan.io/tx/${address}${
+      env.NEXT_PUBLIC_SOLANA_NETWORK === "devnet" ? "?cluster=devnet" : ""
+    }`,
+  };
 };

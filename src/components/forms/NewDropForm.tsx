@@ -282,11 +282,7 @@ function NewDropForm() {
                 <FormItem>
                   <FormLabel>Drop/Collection Name</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={!drop?.isDraft}
-                      placeholder=""
-                      {...field}
-                    />
+                    <Input placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -300,11 +296,7 @@ function NewDropForm() {
                 <FormItem>
                   <FormLabel>Symbol</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={!drop?.isDraft}
-                      placeholder="e.g. GMG"
-                      {...field}
-                    />
+                    <Input placeholder="e.g. GMG" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -317,12 +309,7 @@ function NewDropForm() {
                 <FormItem>
                   <FormLabel>Royalties</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={!drop?.isDraft}
-                      type="number"
-                      placeholder=""
-                      {...field}
-                    />
+                    <Input type="number" placeholder="" {...field} />
                   </FormControl>
                   <FormDescription>
                     The percentage of royalties you want to receive from
@@ -356,11 +343,7 @@ function NewDropForm() {
                 <FormItem className="col-span-1 sm:col-span-2">
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea
-                      disabled={!drop?.isDraft}
-                      placeholder=""
-                      {...field}
-                    />
+                    <Textarea placeholder="" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -455,11 +438,7 @@ function NewDropForm() {
                       <FormItem>
                         <FormLabel>Wallet Address</FormLabel>
                         <FormControl>
-                          <Input
-                            disabled={!drop?.isDraft}
-                            placeholder=""
-                            {...field}
-                          />
+                          <Input placeholder="" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -474,11 +453,7 @@ function NewDropForm() {
                       <FormItem>
                         <FormLabel>Percentage</FormLabel>
                         <FormControl>
-                          <Input
-                            disabled={!drop?.isDraft}
-                            placeholder=""
-                            {...field}
-                          />
+                          <Input placeholder="" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -499,7 +474,6 @@ function NewDropForm() {
             <Button
               variant="outline"
               type="button"
-              disabled={!drop?.isDraft}
               onClick={() => {
                 append({
                   address: "",
@@ -941,9 +915,7 @@ function NewDropForm() {
           <Button onClick={() => router.back()} type="button" variant="outline">
             Back
           </Button>
-          <Button disabled={!drop?.isDraft} type="submit">
-            {isSubmitting ? <Spinner /> : "Save"}
-          </Button>
+          <Button type="submit">{isSubmitting ? <Spinner /> : "Save"}</Button>
         </div>
       </form>
     </Form>

@@ -26,7 +26,9 @@ function DropCard({
 }: DropCardProps): JSX.Element {
   return (
     <Link
-      href={routes.dropDetails(slug).href}
+      href={
+        published ? routes.dropDetails(slug).href : routes.draftDrops(slug).href
+      }
       className="flex flex-col space-y-4 rounded-lg bg-white p-4"
     >
       <div className="relative aspect-1">

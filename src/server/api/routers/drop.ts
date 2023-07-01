@@ -1,6 +1,10 @@
 import { z } from "zod";
 import type { PrismaClient } from "@prisma/client";
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import type { DropSchemaType } from "@/lib/schemaValidations/DropSchema";
 
 async function createUniqueSlug(
@@ -47,10 +51,28 @@ export const dropRouter = createTRPCRouter({
         },
       });
     }),
+  getDropDetails: publicProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.drop.findUnique({
+        where: {
+          slug: input,
+        },
+      });
+    }),
   myDrops: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.drop.findMany({
       where: {
         ownerWalletAddress: ctx.session.user.walletAddress,
+      },
+    });
+  }),
+  allDrops: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.drop.findMany({
+      where: {
+        isPublic: true,
+        // defaultEndDate: {
+        // }
       },
     });
   }),
@@ -165,6 +187,7 @@ export const dropRouter = createTRPCRouter({
           collectionAddress: input.collectionAddress,
           candyMachineId: input.candyMachineAddress,
           isDraft: input.isDraft,
+          isPublished: input.launch,
           isPublic: input.launch,
           creators: {
             connectOrCreate: input.creators?.map((creator) => ({
