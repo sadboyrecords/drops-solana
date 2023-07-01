@@ -15,7 +15,7 @@ export default function DropDetailsPage() {
       staleTime: 1000 * 3, // 3 seconds
     }
   );
-  console.log({ drop });
+
   return (
     <>
       {!isLoading && !drop && <PageWarning type="NOT_FOUND" />}
